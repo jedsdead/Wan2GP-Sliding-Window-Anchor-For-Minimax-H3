@@ -1,9 +1,9 @@
-# Sliding Window Anchor
+# MiniMax H3 Sliding Window Anchor
 
 A [Wan2GP](https://github.com/deepbeepmeep/Wan2GP) plugin.
 
-Sliding Window Anchor injects an end frame at the beginning of a new sliding
-window to create smooth transitions between windows.
+MiniMax H3 Sliding Window Anchor injects an end frame at the beginning of a
+new sliding window to create smooth transitions between windows.
 
 ## What it does
 
@@ -42,7 +42,7 @@ On restart, check the console for:
 If that line is missing the plugin is not active, and nothing else in the
 interface will make a difference.
 
-The panel appears as a collapsed accordion just above **Generate**.
+The panel appears as a collapsed accordion named **H3 Sliding Window Anchor**, just above **Generate**. It is shown for every model, but only acts on H3.
 
 ## Settings to leave alone
 

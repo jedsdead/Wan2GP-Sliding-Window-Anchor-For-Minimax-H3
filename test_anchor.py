@@ -212,6 +212,22 @@ check("float already in [0, 1] passes through",
       torch.allclose(to_float01(already), already))
 
 
+# --- panel title -----------------------------------------------------------
+title = lift("_panel_title")["_panel_title"]
+
+
+class Toggle:
+    def __init__(self, enabled):
+        self.enabled = enabled
+
+
+check("the panel names the model family",
+      title(Toggle(True)) == "H3 Sliding Window Anchor",
+      title(Toggle(True)))
+check("the panel shows when it is switched off",
+      title(Toggle(False)) == "H3 Sliding Window Anchor (off)")
+
+
 # --- model scope -----------------------------------------------------------
 # The injection index is H3's arithmetic. Adding a family here without
 # checking how it resolves positions would place the anchor part-way into the

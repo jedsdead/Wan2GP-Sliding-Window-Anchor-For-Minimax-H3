@@ -1,6 +1,6 @@
 """
-Sliding Window Anchor
-=====================
+MiniMax H3 Sliding Window Anchor
+===============================
 
 Injects an end frame at the beginning of a new sliding window to create smooth
 transitions between windows.
@@ -66,7 +66,7 @@ class SlidingWindowAnchorPlugin(WAN2GPPlugin):
 
     def __init__(self):
         super().__init__()
-        self.name = "Sliding Window Anchor"
+        self.name = "MiniMax H3 Sliding Window Anchor"
         self.version = "1.0.0"
         self.description = DESCRIPTION
 
@@ -460,8 +460,8 @@ class SlidingWindowAnchorPlugin(WAN2GPPlugin):
     # ------------------------------------------------------------------ #
 
     def _panel_title(self):
-        return "Sliding Window Anchor" if self.enabled \
-            else "Sliding Window Anchor (off)"
+        return "H3 Sliding Window Anchor" if self.enabled \
+            else "H3 Sliding Window Anchor (off)"
 
     def _anchor_value(self):
         return self._anchor_path if self._anchor_path \
