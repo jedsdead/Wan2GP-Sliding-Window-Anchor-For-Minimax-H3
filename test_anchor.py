@@ -212,6 +212,20 @@ check("float already in [0, 1] passes through",
       torch.allclose(to_float01(already), already))
 
 
+# --- model scope -----------------------------------------------------------
+# The injection index is H3's arithmetic. Adding a family here without
+# checking how it resolves positions would place the anchor part-way into the
+# window, silently.
+source = open("plugin.py").read()
+targets = ast.literal_eval(source.split("PATCH_TARGETS = ")[1].split("\n\n")[0].strip())
+check("only MiniMax H3 is patched",
+      [t[2] for t in targets] == ["MiniMax H3"],
+      f"targets: {[t[2] for t in targets]}")
+check("the H3 pipeline class is named correctly",
+      targets[0][0] == "models.minimax_h3.pipeline"
+      and targets[0][1] == "MiniMaxH3Pipeline")
+
+
 print()
 if FAILED:
     print(f"{len(FAILED)} FAILED: " + ", ".join(FAILED))

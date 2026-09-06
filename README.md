@@ -15,7 +15,17 @@ so the new window starts from where the previous one ended.
 It runs automatically once enabled. There is nothing to configure beyond
 switching it on.
 
-Works with MiniMax H3, LTX-2 and Wan 2.x.
+## Which models
+
+MiniMax H3 only.
+
+The position the plugin hands to the model is not a plain frame number. H3
+subtracts the number of carried-over overlap frames from it before using it,
+so the plugin adds that count back on to land the anchor on the window's first
+frame. Other model families read the position literally, which would place the
+anchor part-way into the window instead of at its start, and would do so
+silently. Rather than guess, the plugin only attaches itself to H3 and leaves
+every other model untouched.
 
 ## Install
 

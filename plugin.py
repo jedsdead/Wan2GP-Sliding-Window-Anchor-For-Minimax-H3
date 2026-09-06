@@ -10,7 +10,9 @@ generation. This plugin takes the last frame of the window just produced and
 feeds it back as a condition on the first frame of the next one, so the new
 window starts from where the previous one ended.
 
-Works with MiniMax H3, LTX-2 and Wan 2.x.
+For MiniMax H3. Other model families place injected frames using different
+arithmetic, so the plugin leaves them alone rather than putting a frame
+somewhere it was not meant to go.
 """
 
 import atexit
@@ -27,10 +29,15 @@ from .frame_utils import frame_to_rgb_uint8
 
 # (module path, class name, friendly label). Patched independently; a failure
 # on one never blocks the others.
+#
+# MiniMax H3 only, deliberately. The position handed to the model is not a
+# plain frame number: H3 subtracts the carried-over frame count from it before
+# using it, so the plugin adds that count back on. Other families do not, and
+# would read the same number literally and drop the anchor part-way into the
+# window instead of at its start -- with no error to say so. Adding a family
+# here means checking how it resolves injection positions first.
 PATCH_TARGETS = [
     ("models.minimax_h3.pipeline", "MiniMaxH3Pipeline", "MiniMax H3"),
-    ("models.ltx2.ltx2", "LTX2SuperModel", "LTX-2"),
-    ("models.wan.any2video", "WanAny2V", "Wan 2.x"),
 ]
 
 PLUGIN_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -107,10 +114,11 @@ class SlidingWindowAnchorPlugin(WAN2GPPlugin):
         # at setup_ui time.
         self._install_patches()
         if not self._patched:
-            print(f"{TAG} WARNING: no supported model was hooked. The plugin "
-                  f"will have no effect. This usually means Wan2GP has moved "
-                  f"or renamed a pipeline class since this version was "
-                  f"written. Generation is unaffected.")
+            print(f"{TAG} WARNING: MiniMax H3 was not hooked, so the plugin "
+                  f"will have no effect. Either this Wan2GP build does not "
+                  f"include H3, or it has moved or renamed the pipeline class "
+                  f"since this version was written. Generation is "
+                  f"unaffected.")
 
         state_component = components.get("state")
 
