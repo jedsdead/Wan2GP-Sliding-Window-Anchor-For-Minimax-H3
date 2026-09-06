@@ -1,0 +1,7 @@
+{
+  "name": "Sliding Window Anchor",
+  "version": "1.0.0",
+  "type": "extension",
+  "description": "Injects an end frame at the beginning of a new sliding window to create smooth transitions between windows.",
+  "author": "JedsDeadBaby"
+}
